@@ -17,11 +17,9 @@ def student_list(request):
 @api_view(['POST'])
 def student_create(request):
 	serializer = TaskSerializer(data=request.data)
-
 	if serializer.is_valid():
 		serializer.save()
-
-	return Response("Student data Created Successfully")
+	return Response("Data created successfully")
 
 @api_view(['POST'])
 def student_update(request):
@@ -29,14 +27,11 @@ def student_update(request):
 	if Student.objects.filter(id=id).exists():
 		student = Student.objects.get(id=id)
 		serializer = TaskSerializer(instance=student, data=request.data)
-
 		if serializer.is_valid():
 			serializer.save()
-
-		return Response("student data updated successfully")
+		return Response("Data updated successfully")
 	else:
-		return Response("student id not exists in database.")
-
+		return Response("ID doesn't exist in database")
 
 @api_view(['POST'])
 def student_delete(request):
@@ -44,9 +39,6 @@ def student_delete(request):
 	if Student.objects.filter(id=id).exists():
 		student = Student.objects.get(id=id)
 		student.delete()
-		return Response('Item successfully delete!')
+		return Response('Data deleted successfully')
 	else:
-		return Response("student id not exists in database.")
-
-
-
+		return Response("ID doesn't exist in database")
